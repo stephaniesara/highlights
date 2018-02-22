@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import HighlightEntry from './modules/HighlightEntry.jsx';
 
 export default class Highlights extends React.Component {
   constructor(){
@@ -11,7 +12,9 @@ export default class Highlights extends React.Component {
 
   render(){
     return (
-      <div>Hello World</div>
+      
+      <HighlightEntry />
+
     )
   }
 }
