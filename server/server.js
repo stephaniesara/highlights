@@ -5,7 +5,7 @@ app.use(express.static('./client/dist'))
 
 
 
-app.get('/', (req, res) => {
+app.get('/reviews', (req, res) => {
   res.send('TEST FROM SERVER.js')
 });
 
