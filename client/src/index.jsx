@@ -12,7 +12,7 @@ export default class Highlights extends React.Component {
 
   render(){
     return (
-      
+
       <HighlightEntry />
 
     )
