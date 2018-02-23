@@ -8,7 +8,7 @@ app.use(express.static('./client/dist'))
 
 
 app.get('/reviews', (req, res) => {
-  var query = `SELECT text FROM review WHERE business_id = "--6MefnULPED_I942VcFNA"`
+  var query = `SELECT text FROM review WHERE business_id = "pSMK_FtULKiU-iuh7SMKwg"`
    db.connection.query(query, function(err, rows, fields){
     if (err) throw err
     res.send(rows)

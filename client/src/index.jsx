@@ -9,43 +9,55 @@ export default class Highlights extends React.Component {
     this.state = {
       test: true,
       reviews: [],
-      commonWords: {}
+      commonWords: []
     }
+    this.getReviewDataFromDB = this.getReviewDataFromDB.bind(this);
   }
 
+  componentDidMount(){
+    this.getReviewDataFromDB();
+  }
   removePunctuation(word) {
-    var letters = {a:true, b:true, c:true, d:true, e:true, f:true, g:true, h:true, i:true,
+    let letters = {a:true, b:true, c:true, d:true, e:true, f:true, g:true, h:true, i:true,
        j:true, k:true, l:true, m:true, n:true, o:true, p:true, q:true, r:true, s:true,
        t:true, u:true, v:true, w:true, x:true, y:true, z:true};
-    var newWord = "";
-    for (var i = 0; i < word.length; i++){
+    let newWord = "";
+    for (let i = 0; i < word.length; i++){
       if (letters[word[i]]){
         newWord += word[i];
       }
     }
     return newWord;
-};
+  };
 
-findKeyWordsInReview(obj, str) {
-  var words = str.split(" ");
-  for (var i = 0; i < words.length; i++){
-    let word = this.removePunctuation(words[i].toLowerCase());
-    if (obj[word] === undefined){
-      obj[word] = 1;
-    } else {
-      obj[word] += 1;
+  findKeyWordsInReview(obj, str) {
+    let words = str.split(" ");
+    for (let i = 0; i < words.length; i++){
+      let word = this.removePunctuation(words[i].toLowerCase());
+      if (word.length < 6){
+        continue;
+      } else if (obj[word] === undefined){
+        obj[word] = 1;
+      } else {
+        obj[word] += 1;
+      }
     }
-  }
-  return obj;
-};
+    return obj;
+  };
 
-checkAllReviews(array) {
-  var obj = {};
-  for (var i = 0; i < array.length; i++){
-    this.findKeyWordsInReview(obj, array[i].text);
+  checkAllReviews(array) {
+    let wordsObj = {};
+    for (let i = 0; i < array.length; i++){
+      this.findKeyWordsInReview(wordsObj, array[i].text);
+    }
+    let sorted = this.filterKeyWords(wordsObj)
+    this.setState({commonWords:sorted});
+  };
+
+  filterKeyWords(wordsObj) {
+    let topWords = Object.keys(wordsObj).sort(function(a,b){return wordsObj[b]-wordsObj[a]})
+    return [topWords[0], topWords[1], topWords[2], topWords[3], topWords[4], topWords[5], topWords[6], topWords[7]]
   }
-  this.setState({commonWords:obj});
-};
 
   getReviewDataFromDB(){
     $.ajax({
@@ -54,6 +66,7 @@ checkAllReviews(array) {
       success: (data) => {
         console.log('success', data)
         this.setState({reviews:data})
+        this.checkAllReviews(data)
       },
       error: (data) => {
         console.log('fail!')
@@ -62,6 +75,7 @@ checkAllReviews(array) {
   }
 
   render(){
+    
     return (
       <div>
         <button onClick={this.getReviewDataFromDB.bind(this)}>test data request</button>
