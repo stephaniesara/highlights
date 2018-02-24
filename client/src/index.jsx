@@ -9,9 +9,11 @@ export default class Highlights extends React.Component {
     this.state = {
       test: true,
       reviews: [],
-      commonWords: []
+      commonWords: [],
+      highlights: []
     }
     this.getReviewDataFromDB = this.getReviewDataFromDB.bind(this);
+    this.findReviewWithKeyWord = this.findReviewWithKeyWord.bind(this);
   }
 
   componentDidMount(){
@@ -59,14 +61,51 @@ export default class Highlights extends React.Component {
     return [topWords[0], topWords[1], topWords[2], topWords[3], topWords[4], topWords[5], topWords[6], topWords[7]]
   }
 
+  findReviewWithKeyWord(keyWordArr, reviewArr) {
+    let reviewHighlights = [];
+    for (let i = 0; i < keyWordArr.length; i++) {
+      for (let j = 0; j < reviewArr.length; j++) {
+        // debugger;
+        if (reviewArr[j].text.includes(keyWordArr[i])){
+          // reviewHighlights.push(reviewArr[j].text);
+          let reviewHighlight = this.findHighlightSentence(`${reviewArr[j].text}`, `${keyWordArr[i]}`);
+          console.log('review highlight', reviewHighlight)
+          reviewHighlights.push(reviewHighlight);
+          reviewArr[j].text = "";
+          break;
+        }
+      }
+    }
+    console.log(reviewHighlights)
+
+    this.setState({highlights:reviewHighlights})
+  }
+
+  findHighlightSentence(review, keyword) {
+    let reviewSplits = review.split('.');
+      for (let j = 0; j < reviewSplits.length; j++) {
+        if (reviewSplits[j].includes(keyword)){
+          return reviewSplits[j] + '.';
+        }
+      }
+      // reviewSplits = review.split('!')
+      // for (let i = 0; i < reviewSplits.length; j++) {
+      //   if (reviewSplits[j].includes(keyword)){
+      //     return reviewSplits[j] + '!';
+      //   }
+      // }
+    return 'error!';
+};
+
   getReviewDataFromDB(){
     $.ajax({
       url: 'http://127.0.0.1:3003/reviews',
       type: 'GET',
       success: (data) => {
-        console.log('success', data)
-        this.setState({reviews:data})
-        this.checkAllReviews(data)
+        console.log('success', data);
+        this.setState({reviews:data});
+        this.checkAllReviews(data);
+        this.findReviewWithKeyWord(this.state.commonWords, this.state.reviews);
       },
       error: (data) => {
         console.log('fail!')
@@ -75,12 +114,13 @@ export default class Highlights extends React.Component {
   }
 
   render(){
-    
+    const words = this.state.highlights;
+    const highlightEntries = words.map((highlight, index) =>
+      <div key={index}><br />{highlight} <br /></div>
+    )
     return (
       <div>
-        <button onClick={this.getReviewDataFromDB.bind(this)}>test data request</button>
-        <button onClick={this.checkAllReviews.bind(this, this.state.reviews)}>test find keyword button</button>
-        <HighlightEntry />
+        <div>{highlightEntries}</div>
       </div>
 
     )
