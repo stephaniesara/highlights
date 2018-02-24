@@ -69,6 +69,9 @@ export default class Highlights extends React.Component {
         if (reviewArr[j].text.includes(keyWordArr[i])){
           // reviewHighlights.push(reviewArr[j].text);
           let reviewHighlight = this.findHighlightSentence(`${reviewArr[j].text}`, `${keyWordArr[i]}`);
+          if (reviewHighlight === null){
+            continue;
+          }
           console.log('review highlight', reviewHighlight)
           reviewHighlights.push(reviewHighlight);
           reviewArr[j].text = "";
@@ -82,10 +85,13 @@ export default class Highlights extends React.Component {
   }
 
   findHighlightSentence(review, keyword) {
-    let reviewSplits = review.split('.');
+    let reviewSplits = review.match( /[^\.!\?]+[\.!\?]+/g );;
+    if (reviewSplits === null){
+      return null;
+    }
       for (let j = 0; j < reviewSplits.length; j++) {
         if (reviewSplits[j].includes(keyword)){
-          return reviewSplits[j] + '.';
+          return reviewSplits[j];
         }
       }
       // reviewSplits = review.split('!')
