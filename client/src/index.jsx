@@ -99,7 +99,15 @@ export default class Highlights extends React.Component {
   getReviewDataFromDB(){
     //TODO this is kinda janky to get the url and may
     //cause conflicts later, but it works for now.
-    var id = window.location.search.split('=')[1];
+    var regex = /[?&]([^=#]+)=([^&#]*)/g,
+        url = window.location.href,
+        params = {},
+        match;
+    while(match = regex.exec(url)) {
+        params[match[1]] = match[2];
+    }
+    var id = params.id;
+
     $.ajax({
       url: 'http://127.0.0.1:3003/reviews',
       type: 'GET',
