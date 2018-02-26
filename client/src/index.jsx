@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import HighlightEntry from './modules/HighlightEntry.jsx';
 import $ from 'jquery';
+import url from 'url-parse';
+const currentUrl = url();
 
 export default class Highlights extends React.Component {
   constructor(){
@@ -20,9 +22,11 @@ export default class Highlights extends React.Component {
     this.getReviewDataFromDB();
   }
   removePunctuation(word) {
-    let letters = {a:true, b:true, c:true, d:true, e:true, f:true, g:true, h:true, i:true,
-       j:true, k:true, l:true, m:true, n:true, o:true, p:true, q:true, r:true, s:true,
-       t:true, u:true, v:true, w:true, x:true, y:true, z:true};
+    let letters = {
+       a:true, b:true, c:true, d:true, e:true, f:true, g:true, h:true, i:true,
+       j:true, k:true, l:true, m:true, n:true, o:true, p:true, q:true, r:true,
+       s:true, t:true, u:true, v:true, w:true, x:true, y:true, z:true
+     };
     let newWord = "";
     for (let i = 0; i < word.length; i++){
       if (letters[word[i]]){
@@ -65,48 +69,41 @@ export default class Highlights extends React.Component {
     let reviewHighlights = [];
     for (let i = 0; i < keyWordArr.length; i++) {
       for (let j = 0; j < reviewArr.length; j++) {
-        // debugger;
         if (reviewArr[j].text.includes(keyWordArr[i])){
-          // reviewHighlights.push(reviewArr[j].text);
           let reviewHighlight = this.findHighlightSentence(`${reviewArr[j].text}`, `${keyWordArr[i]}`);
           if (reviewHighlight === null){
             continue;
           }
-          console.log('review highlight', reviewHighlight)
           reviewHighlights.push(reviewHighlight);
           reviewArr[j].text = "";
           break;
         }
       }
     }
-    console.log(reviewHighlights)
-
     this.setState({highlights:reviewHighlights})
   }
 
   findHighlightSentence(review, keyword) {
-    let reviewSplits = review.match( /[^\.!\?]+[\.!\?]+/g );;
-    if (reviewSplits === null){
+    let singleReviewArray = review.match( /[^\.!\?]+[\.!\?]+/g );;
+    if (singleReviewArray === null){
       return null;
     }
-      for (let j = 0; j < reviewSplits.length; j++) {
-        if (reviewSplits[j].includes(keyword)){
-          return reviewSplits[j];
+      for (let j = 0; j < singleReviewArray.length; j++) {
+        if (singleReviewArray[j].includes(keyword)){
+          return singleReviewArray[j];
         }
       }
-      // reviewSplits = review.split('!')
-      // for (let i = 0; i < reviewSplits.length; j++) {
-      //   if (reviewSplits[j].includes(keyword)){
-      //     return reviewSplits[j] + '!';
-      //   }
-      // }
     return 'error!';
 };
 
   getReviewDataFromDB(){
+    //TODO this is kinda janky to get the url and may
+    //cause conflicts later, but it works for now.
+    var id = window.location.search.split('=')[1];
     $.ajax({
       url: 'http://127.0.0.1:3003/reviews',
       type: 'GET',
+      data: {id:id},
       success: (data) => {
         console.log('success', data);
         this.setState({reviews:data});
@@ -116,12 +113,12 @@ export default class Highlights extends React.Component {
       error: (data) => {
         console.log('fail!')
       }
-    })
+    });
   }
 
   render(){
-    const words = this.state.highlights;
-    const highlightEntries = words.map((highlight, index) =>
+    const allHighlights = this.state.highlights;
+    const highlightEntries = allHighlights.map((highlight, index) =>
       <div key={index}><br />{highlight} <br /></div>
     )
     return (
