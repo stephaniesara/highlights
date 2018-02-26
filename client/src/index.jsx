@@ -113,13 +113,13 @@ export default class Highlights extends React.Component {
       type: 'GET',
       data: {id:id},
       success: (data) => {
-        console.log('success', data);
+        console.log('GET success!', data);
         this.setState({reviews:data});
         this.checkAllReviews(data);
         this.findReviewWithKeyWord(this.state.commonWords, this.state.reviews);
       },
       error: (data) => {
-        console.log('fail!')
+        console.log('GET failed!')
       }
     });
   }
