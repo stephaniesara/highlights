@@ -1,8 +1,12 @@
 const helper = require('./../helpers/helper.js');
 
 
-test('expects removePunctuation to remove punctuation properly', () => {
+test('expects removePunctuation to remove punctuation from end of words.', () => {
   expect(helper.removePunctuation('hello!')).toBe('hello');
+});
+
+test('expects removePunctuation to remove punctuation from within words', () => {
+  expect(helper.removePunctuation('$h@e,l$@l"o!')).toBe('hello');
 });
 
 test('expects findKeyWordsInReview to only map long words', () => {
