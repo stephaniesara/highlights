@@ -11,10 +11,12 @@ app.use(express.static('./client/dist'))
 
 app.get('/reviews', (req, res) => {
   var id = req.query.id;
-  var query = `SELECT text FROM review WHERE business_id = "${id}"`
+  var reviews;
+  var query = `SELECT text, user_id, stars FROM review WHERE business_id = "${id}"`
    db.connection.query(query, function(err, rows, fields){
     if (err) throw err
-    res.send(rows)
+    var reviews = rows;
+    res.send(reviews)
   });
 });
 

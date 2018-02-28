@@ -42,7 +42,7 @@ export default class Highlights extends React.Component {
           if (reviewHighlight === null){
             continue;
           }
-          reviewHighlights.push(reviewHighlight);
+          reviewHighlights.push([reviewHighlight, keyWordArr[i]]);
           reviewArr[j].text = "";
           break;
         }
@@ -81,9 +81,23 @@ export default class Highlights extends React.Component {
 
   render(){
     const allHighlights = this.state.highlights;
-    const highlightEntries = allHighlights.map((highlight, index) =>
-      <div key={index}><br />{highlight} <br /></div>
-    )
+    const highlightEntries = allHighlights.map((highlight, index) => {
+      // let newHighlight = [];
+      // let highlighted = highlight[0].split(" ");
+      // for (var i = 0; i < highlighted.length; i++){
+      //   if (highlighted[i] === highlight[1]){
+      //     newHighlight.push('<span className="highlighted">highlighted[i]</span>')
+      //   } else {
+      //     newHighlight.push(highlighted[i])
+      //   }
+      // }
+      // newHighlight = newHighlight.join(" ");
+      // console.log(newHighlight)
+      return (
+        <div className="highlight" key={index}><span><img className="image" src="https://i.imgur.com/Rxl9E1S.jpg"></img></span><span className="text">{highlight[0]}</span></div>
+      )
+
+    });
     return (
       <div>
         <div>{highlightEntries}</div>

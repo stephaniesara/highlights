@@ -1,3 +1,12 @@
 body {
   background-color: white;
 }
+
+.highlight {
+  width: 630px;
+  display: flex;
+}
+
+.text {
+  padding: 10px;
+}
