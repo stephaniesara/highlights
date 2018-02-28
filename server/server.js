@@ -10,7 +10,6 @@ app.use(express.static('./client/dist'))
 
 
 app.get('/reviews', (req, res) => {
-  console.log('url test2', req.query.id)
   var id = req.query.id;
   var query = `SELECT text FROM review WHERE business_id = "${id}"`
    db.connection.query(query, function(err, rows, fields){

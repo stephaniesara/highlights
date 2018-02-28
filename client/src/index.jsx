@@ -4,6 +4,7 @@ import HighlightEntry from './modules/HighlightEntry.jsx';
 import $ from 'jquery';
 import url from 'url-parse';
 const currentUrl = url();
+import helper from './../../helpers/helper.js'
 
 export default class Highlights extends React.Component {
   constructor(){
@@ -21,56 +22,23 @@ export default class Highlights extends React.Component {
   componentDidMount(){
     this.getReviewDataFromDB();
   }
-  removePunctuation(word) {
-    let letters = {
-       a:true, b:true, c:true, d:true, e:true, f:true, g:true, h:true, i:true,
-       j:true, k:true, l:true, m:true, n:true, o:true, p:true, q:true, r:true,
-       s:true, t:true, u:true, v:true, w:true, x:true, y:true, z:true
-     };
-    let newWord = "";
-    for (let i = 0; i < word.length; i++){
-      if (letters[word[i]]){
-        newWord += word[i];
-      }
-    }
-    return newWord;
-  };
-
-  findKeyWordsInReview(obj, str) {
-    let words = str.split(" ");
-    for (let i = 0; i < words.length; i++){
-      let word = this.removePunctuation(words[i].toLowerCase());
-      if (word.length < 6){
-        continue;
-      } else if (obj[word] === undefined){
-        obj[word] = 1;
-      } else {
-        obj[word] += 1;
-      }
-    }
-    return obj;
-  };
 
   checkAllReviews(array) {
     let wordsObj = {};
     for (let i = 0; i < array.length; i++){
-      this.findKeyWordsInReview(wordsObj, array[i].text);
+      helper.findKeyWordsInReview(wordsObj, array[i].text);
     }
-    let sorted = this.filterKeyWords(wordsObj)
+    let sorted = helper.filterKeyWords(wordsObj)
     this.setState({commonWords:sorted});
   };
 
-  filterKeyWords(wordsObj) {
-    let topWords = Object.keys(wordsObj).sort(function(a,b){return wordsObj[b]-wordsObj[a]})
-    return [topWords[0], topWords[1], topWords[2], topWords[3], topWords[4], topWords[5], topWords[6], topWords[7]]
-  }
 
   findReviewWithKeyWord(keyWordArr, reviewArr) {
     let reviewHighlights = [];
     for (let i = 0; i < keyWordArr.length; i++) {
       for (let j = 0; j < reviewArr.length; j++) {
         if (reviewArr[j].text.includes(keyWordArr[i])){
-          let reviewHighlight = this.findHighlightSentence(`${reviewArr[j].text}`, `${keyWordArr[i]}`);
+          let reviewHighlight = helper.findHighlightSentence(`${reviewArr[j].text}`, `${keyWordArr[i]}`);
           if (reviewHighlight === null){
             continue;
           }
@@ -82,19 +50,6 @@ export default class Highlights extends React.Component {
     }
     this.setState({highlights:reviewHighlights})
   }
-
-  findHighlightSentence(review, keyword) {
-    let singleReviewArray = review.match( /[^\.!\?]+[\.!\?]+/g );;
-    if (singleReviewArray === null){
-      return null;
-    }
-      for (let j = 0; j < singleReviewArray.length; j++) {
-        if (singleReviewArray[j].includes(keyword)){
-          return singleReviewArray[j];
-        }
-      }
-    return 'error!';
-};
 
   getReviewDataFromDB(){
     //TODO this is kinda janky to get the url and may
