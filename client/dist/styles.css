@@ -10,3 +10,13 @@ body {
 .text {
   padding: 10px;
 }
+
+.image {
+  height: 60px;
+  width: 60px;
+}
+
+.keyword {
+  font-weight: bold;
+  color: royalblue;
+}
