@@ -177,6 +177,7 @@ export default class Highlights extends React.Component {
       let postK = [];
       let highlighted = text.split(" ");
       let passedKeyword = false;
+
       if (highlight.length === 3){
         var imageURL = `https://s3-media4.fl.yelpcdn.com/photo/${userURL}/120s.jpg`
       } else {
@@ -194,15 +195,16 @@ export default class Highlights extends React.Component {
           preK.push(highlighted[i])
         }
       }
+      let searchLink = `?q=${keyWord}`
 
       return (
         <div className="highlight" key={index}>
         <span><img className="image" src={imageURL} /></span>
         <span className="text">
           <span>{preK.join(" ")}</span>
-          <span className="keyword">{k}</span>
+          <span className="keyword"><a href={searchLink}>{k}</a></span>
           <span>{postK.join(" ")}</span>
-          <span className="frequency"> in {frequency} reviews</span>
+          <span className="frequency"><a href={searchLink}> in {frequency} reviews</a></span>
         </span>
         </div>
       )
