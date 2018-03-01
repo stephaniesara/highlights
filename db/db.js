@@ -12,10 +12,4 @@ connection.connect(function(err) {
   console.log('MYSQL IS CONNECTED')
 })
 
-// var query = `SELECT text FROM review WHERE business_id = "--6MefnULPED_I942VcFNA"`
-// var getReviews = connection.query(query, function(err, rows, fields){
-//   if (err) throw err
-//   return rows;
-// });
-
 module.exports.connection = connection;

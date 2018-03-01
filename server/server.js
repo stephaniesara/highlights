@@ -3,14 +3,20 @@ const app = express();
 const bodyParser = require('body-parser');
 const db = require('./../db/db.js')
 const url = require('url-parse');
-const currentUrl = url()
+const currentUrl = url();
+const path = require('path');
 
 app.use(express.static('./client/dist'))
 
+app.get('/:id', (req, res) => {
+  console.log(req.params)
+  res.sendFile(path.join(__dirname + './../client/dist/index.html'));
+});
 
 
-app.get('/reviews', (req, res) => {
+app.get('/reviews/highlights', (req, res) => {
   var id = req.query.id;
+  console.log(req)
   var reviews;
   var query = `SELECT text, user_id, stars FROM review WHERE business_id = "${id}"`
    db.connection.query(query, function(err, rows, fields){

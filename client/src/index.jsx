@@ -6,6 +6,7 @@ import url from 'url-parse';
 const currentUrl = url();
 import helper from './../../helpers/helper.js'
 
+
 export default class Highlights extends React.Component {
   constructor(){
     super()
@@ -55,19 +56,33 @@ export default class Highlights extends React.Component {
   getReviewDataFromDB(){
     //TODO this is kinda janky to get the url and may
     //cause conflicts later, but it works for now.
-    var regex = /[?&]([^=#]+)=([^&#]*)/g,
-        url = window.location.href,
-        params = {},
-        match;
-    while(match = regex.exec(url)) {
-        params[match[1]] = match[2];
+    // var splitBy = /[?&]([^=#]+)=([^&#]*)/g,
+    //     url = window.location.href,
+    //     params = {},
+    //     match;
+    // while(match = splitBy.exec(url)) {
+    //     params[match[1]] = match[2];
+    // }
+    //
+    // var id = params.id;
+
+
+    var url = window.location.href.split('/').pop();
+    url = url.split('?');
+    if (url.length > 1) {
+      var urlParams = url[1].split('&');
+      urlParams = urlParams.reduce((acc, param) => {
+        param = param.split('=');
+        acc[param[0]] = param[1];
+        return acc;
+      }, {id: url[0]});
     }
-    var id = params.id;
+    console.log(url[0]);
 
     $.ajax({
-      url: 'http://127.0.0.1:3003/reviews',
+      url: 'http://127.0.0.1:3003/reviews/highlights',
       type: 'GET',
-      data: {id:id},
+      data: {id:url[0]},
       success: (data) => {
         console.log('GET success!', data);
         this.setState({reviews:data});
@@ -87,15 +102,16 @@ export default class Highlights extends React.Component {
       let keyWord = highlight[1];
       let userURL = highlight[2]
       let preK = [];
-      let k = ` ${keyWord} `
+      let k;
       let postK = [];
       let highlighted = text.split(" ");
       let passedKeyword = false;
       let imageUrl = `https://s3-media4.fl.yelpcdn.com/photo/${userURL}/120s.jpg`
 
       for (var i = 0; i < highlighted.length; i++){
-        if (highlighted[i] === keyWord){
+        if (highlighted[i].toLowerCase().includes(keyWord)){
           passedKeyword = true;
+          k = " " + highlighted[i] + " ";
           continue;
         } else if (passedKeyword) {
           postK.push(highlighted[i])
