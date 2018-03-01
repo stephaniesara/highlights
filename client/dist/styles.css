@@ -1,5 +1,5 @@
 body {
-  background-color: pink;
+  background-color: white;
 }
 
 .highlight {
@@ -9,6 +9,7 @@ body {
 
 .text {
   padding: 10px;
+  font-size: 15px;
 }
 
 .image {
@@ -19,4 +20,9 @@ body {
 .keyword {
   font-weight: bold;
   color: royalblue;
+}
+
+.frequency {
+  font-size: 13px;
+  color: grey;
 }

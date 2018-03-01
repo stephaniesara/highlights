@@ -12,6 +12,7 @@ export default class Highlights extends React.Component {
     super()
     this.state = {
       test: true,
+      wordsObj: {},
       reviews: [],
       commonWords: [],
       highlights: []
@@ -29,6 +30,7 @@ export default class Highlights extends React.Component {
     for (let i = 0; i < array.length; i++){
       helper.findKeyWordsInReview(wordsObj, array[i].text);
     }
+    this.setState({wordsObj:wordsObj})
     let sorted = helper.filterKeyWords(wordsObj)
     this.setState({commonWords:sorted});
   };
@@ -54,8 +56,6 @@ export default class Highlights extends React.Component {
   }
 
   getReviewDataFromDB(){
-    //TODO this is kinda janky to get the url and may
-    //cause conflicts later, but it works for now.
     // var splitBy = /[?&]([^=#]+)=([^&#]*)/g,
     //     url = window.location.href,
     //     params = {},
@@ -100,7 +100,8 @@ export default class Highlights extends React.Component {
     const highlightEntries = allHighlights.map((highlight, index) => {
       let text = highlight[0];
       let keyWord = highlight[1];
-      let userURL = highlight[2]
+      let userURL = highlight[2];
+      let frequency = this.state.wordsObj[keyWord];
       let preK = [];
       let k;
       let postK = [];
@@ -127,6 +128,7 @@ export default class Highlights extends React.Component {
           <span>{preK.join(" ")}</span>
           <span className="keyword">{k}</span>
           <span>{postK.join(" ")}</span>
+          <span className="frequency"> in {frequency} reviews</span>
         </span>
         </div>
       )

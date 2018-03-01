@@ -30,7 +30,9 @@ function findKeyWordsInReview(obj, str) {
 
 function filterKeyWords(wordsObj) {
   let topWords = Object.keys(wordsObj).sort(function(a,b){return wordsObj[b]-wordsObj[a]})
-  return [topWords[0], topWords[1], topWords[2], topWords[3], topWords[4], topWords[5], topWords[6], topWords[7]]
+
+  return [topWords[0], topWords[1], topWords[2],
+  topWords[3], topWords[4], topWords[5], topWords[6], topWords[7]]
 }
 
 function findHighlightSentence(review, keyword) {
