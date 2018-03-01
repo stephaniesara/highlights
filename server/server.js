@@ -16,9 +16,19 @@ app.get('/:id', (req, res) => {
 
 app.get('/reviews/highlights', (req, res) => {
   var id = req.query.id;
-  console.log(req)
   var reviews;
   var query = `SELECT text, user_id, stars FROM review WHERE business_id = "${id}"`
+   db.connection.query(query, function(err, rows, fields){
+    if (err) throw err
+    var reviews = rows;
+    res.send(reviews)
+  });
+});
+
+app.get('/reviews/photos', (req, res) => {
+  var id = req.query.id;
+  var reviews;
+  var query = `SELECT id, caption FROM photo WHERE business_id = "${id}"`
    db.connection.query(query, function(err, rows, fields){
     if (err) throw err
     var reviews = rows;

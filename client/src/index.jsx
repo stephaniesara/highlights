@@ -15,14 +15,17 @@ export default class Highlights extends React.Component {
       wordsObj: {},
       reviews: [],
       commonWords: [],
-      highlights: []
+      highlights: [],
+      photos: []
     }
     this.getReviewDataFromDB = this.getReviewDataFromDB.bind(this);
     this.findReviewWithKeyWord = this.findReviewWithKeyWord.bind(this);
+    this.getPhotoDataFromDB = this.getPhotoDataFromDB.bind(this);
   }
 
   componentDidMount(){
     this.getReviewDataFromDB();
+    this.getPhotoDataFromDB();
   }
 
   checkAllReviews(array) {
@@ -84,10 +87,76 @@ export default class Highlights extends React.Component {
       type: 'GET',
       data: {id:url[0]},
       success: (data) => {
-        console.log('GET success!', data);
+        console.log('GET review success!', data);
         this.setState({reviews:data});
         this.checkAllReviews(data);
         this.findReviewWithKeyWord(this.state.commonWords, this.state.reviews);
+      },
+      error: (data) => {
+        console.log('GET failed!')
+      }
+    });
+  }
+
+//go through highlight array,
+  // for each keyword, find a photo that contains a keyword
+  //  if one is found, push into highlight array
+  // if none is found, do nothing.
+  // later, if highlight array[3] is undefined, use avatar url
+    // else, use photo url.
+
+  captionHasKeyword(keyword, caption){
+    // let cap = caption.split(" ");
+    // for (var i = 0; i < )
+    //TODO make this more specific if it causes problems.
+
+    if (caption.toLowerCase().includes(keyword)){
+      return true;
+    }
+    return false;
+  }
+
+  addPhotoToHighlightArr(keywordArr, captionArr){
+    for (var i = 0; i < keywordArr.length; i++){
+      // let updatedHighlight = keywordArr[i];
+      let keyword = keywordArr[i][1];
+      for (var j = 0; j < captionArr.length; j++){
+        var caption = captionArr[j].caption;
+        if (this.captionHasKeyword(keyword, caption)){
+          keywordArr[i].push(captionArr[j].id)
+          captionArr[j].caption = "";
+          this.setState({photos:this.state.photos})
+          break;
+        }
+      }
+    }
+  }
+
+  getPhotoDataFromDB(){
+    var url = window.location.href.split('/').pop();
+    url = url.split('?');
+    if (url.length > 1) {
+      var urlParams = url[1].split('&');
+      urlParams = urlParams.reduce((acc, param) => {
+        param = param.split('=');
+        acc[param[0]] = param[1];
+        return acc;
+      }, {id: url[0]});
+    }
+    console.log(url[0]);
+
+    $.ajax({
+      url: 'http://127.0.0.1:3003/reviews/photos',
+      type: 'GET',
+      data: {id:url[0]},
+      success: (data) => {
+        console.log('GET photo! success!', data);
+        this.setState({photos:data})
+        this.addPhotoToHighlightArr(this.state.highlights, this.state.photos)
+        this.setState({highlights:this.state.highlights})
+        // this.setState({reviews:data});
+        // this.checkAllReviews(data);
+        // this.findReviewWithKeyWord(this.state.commonWords, this.state.reviews);
       },
       error: (data) => {
         console.log('GET failed!')
@@ -100,14 +169,19 @@ export default class Highlights extends React.Component {
     const highlightEntries = allHighlights.map((highlight, index) => {
       let text = highlight[0];
       let keyWord = highlight[1];
-      let userURL = highlight[2];
+      var userURL = highlight[2];
+      var photoURL = highlight[3]
       let frequency = this.state.wordsObj[keyWord];
       let preK = [];
       let k;
       let postK = [];
       let highlighted = text.split(" ");
       let passedKeyword = false;
-      let imageUrl = `https://s3-media4.fl.yelpcdn.com/photo/${userURL}/120s.jpg`
+      if (highlight.length === 3){
+        var imageURL = `https://s3-media4.fl.yelpcdn.com/photo/${userURL}/120s.jpg`
+      } else {
+        var imageURL = `https://s3-media3.fl.yelpcdn.com/bphoto/${photoURL}/120s.jpg`
+      }
 
       for (var i = 0; i < highlighted.length; i++){
         if (highlighted[i].toLowerCase().includes(keyWord)){
@@ -123,7 +197,7 @@ export default class Highlights extends React.Component {
 
       return (
         <div className="highlight" key={index}>
-        <span><img className="image" src={imageUrl} /></span>
+        <span><img className="image" src={imageURL} /></span>
         <span className="text">
           <span>{preK.join(" ")}</span>
           <span className="keyword">{k}</span>

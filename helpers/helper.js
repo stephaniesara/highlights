@@ -19,6 +19,9 @@ function findKeyWordsInReview(obj, str) {
     let word = this.removePunctuation(words[i].toLowerCase());
     if (word.length < 6){
       continue;
+    } else if (word === 'really' || word === 'restaurant' || word === 'restaurants'
+    || word === 'ordered' || word === 'order' || word === 'because' || word === 'definitely'){
+      continue;
     } else if (obj[word] === undefined){
       obj[word] = 1;
     } else {
