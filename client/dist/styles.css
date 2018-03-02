@@ -1,3 +1,71 @@
 body {
   background-color: white;
 }
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:hover {
+   color: inherit;
+ }
+
+ button {
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+    color: blue;
+}
+button:hover {
+    text-decoration: underline;
+}
+
+
+.highlight {
+  width: 630px;
+  display: flex;
+}
+
+.text {
+  padding: 10px;
+  font-size: 15px;
+}
+
+.image {
+  height: 60px;
+  width: 60px;
+  border-radius: 5px;
+}
+
+.keyword {
+  /* color: #65D36D; */
+  color: royalblue;
+  font-weight: bold;
+}
+
+.frequency {
+  font-size: 13px;
+  color: grey;
+}
+
+.highlightTransition-enter {
+  opacity: 0.01;
+}
+
+.highlightTransition-enter.highlightTransition-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+.highlightTransition-leave {
+  opacity: 1;
+}
+
+.highlightTransition-leave.highlightTransition-leave-active {
+  opacity: 0.01;
+  transition: opacity 500ms ease-in;
+}
