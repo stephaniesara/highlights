@@ -5,6 +5,7 @@ import $ from 'jquery';
 import url from 'url-parse';
 const currentUrl = url();
 import helper from './../../helpers/helper.js'
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 
 
 export default class Highlights extends React.Component {
@@ -173,6 +174,12 @@ export default class Highlights extends React.Component {
   }
 
   render(){
+
+    if (this.state.itemsToShow === 4){
+      var innerHTML = "Show more review highlights";
+    } else {
+      var innerHTML = "Show fewer review highlights";
+    }
     const allHighlights = this.state.highlights;
     const highlightEntries = allHighlights.slice(0, this.state.itemsToShow).map((highlight, index) => {
       let text = highlight[0];
@@ -220,8 +227,21 @@ export default class Highlights extends React.Component {
 
     return (
       <div>
-        <div>{highlightEntries}</div>
-        <span><button onClick={this.seeMoreHighlights.bind(this)}>see more / less highlights</button></span>
+
+
+
+        <div className="allHighlights">
+        <CSSTransitionGroup
+          transitionName="highlightTransition"
+          transitionEnterTimeout={500}
+          transitionLeaveTimeout={500}>
+
+          {highlightEntries}
+        </CSSTransitionGroup>
+        </div>
+
+
+        <span><button onClick={this.seeMoreHighlights.bind(this)}>{innerHTML}</button></span>
       </div>
 
     )
