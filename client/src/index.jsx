@@ -108,7 +108,7 @@ export default class Highlights extends React.Component {
       let keyword = keywordArr[i][1];
       for (var j = 0; j < captionArr.length; j++){
         var caption = captionArr[j].caption;
-        if (helpers.captionHasKeyword(keyword, caption)){
+        if (helper.captionHasKeyword(keyword, caption)){
           keywordArr[i].push(captionArr[j].id)
           captionArr[j].caption = "";
           this.setState({photos:this.state.photos})
