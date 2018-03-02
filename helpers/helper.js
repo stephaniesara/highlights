@@ -53,7 +53,13 @@ function findHighlightSentence(review, keyword) {
   return 'error!';
 };
 
+function captionHasKeyword(keyword, caption){
+  //TODO make this more specific if it causes problems.
+return caption.toLowerCase().includes(keyword) ? true : false;
+}
+
 module.exports.removePunctuation = removePunctuation;
 module.exports.findKeyWordsInReview = findKeyWordsInReview;
 module.exports.filterKeyWords = filterKeyWords;
 module.exports.findHighlightSentence = findHighlightSentence;
+module.exports.captionHasKeyword = captionHasKeyword;

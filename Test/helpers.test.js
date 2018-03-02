@@ -1,5 +1,5 @@
 const helper = require('./../helpers/helper.js');
-
+//test
 
 test('expects removePunctuation to remove punctuation from end of words.', () => {
   expect(helper.removePunctuation('hello!')).toBe('hello');
@@ -38,4 +38,10 @@ test('expects findHighlightSentence to return an error if word cannot be found i
   let review = "The service was good. The food was terrific!";
   let keyword = "wonderful";
   expect(helper.findHighlightSentence(review, keyword)).toEqual("error!")
+});
+
+test('expects captionHasKeyword to check if a caption has a keyword', () => {
+  let caption = "The service was wonderful. The food was terrific!";
+  let keyword = "wonderful";
+  expect(helper.captionHasKeyword(keyword, caption)).toEqual(true)
 });

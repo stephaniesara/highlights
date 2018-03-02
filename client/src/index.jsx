@@ -99,13 +99,6 @@ export default class Highlights extends React.Component {
     });
   }
 
-  captionHasKeyword(keyword, caption){
-    //TODO make this more specific if it causes problems.
-    //TODO move this to helper.js
-  return caption.toLowerCase().includes(keyword) ? true : false;
-  }
-
-
   // here we check each photo caption to see if it has a keyword.
   // if it does, we push that photo url into the highlight array.
   // the highlight array now looks like :
@@ -115,7 +108,7 @@ export default class Highlights extends React.Component {
       let keyword = keywordArr[i][1];
       for (var j = 0; j < captionArr.length; j++){
         var caption = captionArr[j].caption;
-        if (this.captionHasKeyword(keyword, caption)){
+        if (helpers.captionHasKeyword(keyword, caption)){
           keywordArr[i].push(captionArr[j].id)
           captionArr[j].caption = "";
           this.setState({photos:this.state.photos})
