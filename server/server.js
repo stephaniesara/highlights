@@ -13,7 +13,7 @@ app.get('/:id', (req, res) => {
 });
 
 
-app.get('/reviews/highlights', (req, res) => {
+app.get('/highlights/reviews', (req, res) => {
   var id = req.query.id;
   var reviews;
   var query = `SELECT text, user_id, stars FROM review WHERE business_id = "${id}"`
@@ -24,14 +24,14 @@ app.get('/reviews/highlights', (req, res) => {
   });
 });
 
-app.get('/reviews/photos', (req, res) => {
+app.get('/highlights/photos', (req, res) => {
   var id = req.query.id;
   var reviews;
   var query = `SELECT id, caption FROM photo WHERE business_id = "${id}"`
    db.connection.query(query, function(err, rows, fields){
     if (err) throw err
-    var reviews = rows;
-    res.send(reviews)
+    var photos = rows;
+    res.send(photos)
   });
 });
 

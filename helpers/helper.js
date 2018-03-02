@@ -1,3 +1,5 @@
+// any function that doesn't change state should be here
+
 function removePunctuation(word) {
   let letters = {
      a:true, b:true, c:true, d:true, e:true, f:true, g:true, h:true, i:true,
