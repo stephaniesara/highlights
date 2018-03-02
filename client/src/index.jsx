@@ -16,7 +16,8 @@ export default class Highlights extends React.Component {
       reviews: [],
       commonWords: [],
       highlights: [],
-      photos: []
+      photos: [],
+      itemsToShow: 4
     }
     this.getReviewDataFromDB = this.getReviewDataFromDB.bind(this);
     this.findReviewWithKeyWord = this.findReviewWithKeyWord.bind(this);
@@ -143,7 +144,6 @@ export default class Highlights extends React.Component {
         return acc;
       }, {id: url[0]});
     }
-    console.log(url[0]);
 
     $.ajax({
       url: 'http://127.0.0.1:3003/reviews/photos',
@@ -164,9 +164,17 @@ export default class Highlights extends React.Component {
     });
   }
 
+  seeMoreHighlights(){
+    if (this.state.itemsToShow === 4){
+      this.setState({itemsToShow: 8})
+    } else {
+      this.setState({itemsToShow: 4})
+    }
+  }
+
   render(){
     const allHighlights = this.state.highlights;
-    const highlightEntries = allHighlights.map((highlight, index) => {
+    const highlightEntries = allHighlights.slice(0, this.state.itemsToShow).map((highlight, index) => {
       let text = highlight[0];
       let keyWord = highlight[1];
       var userURL = highlight[2];
@@ -213,6 +221,7 @@ export default class Highlights extends React.Component {
     return (
       <div>
         <div>{highlightEntries}</div>
+        <span><button onClick={this.seeMoreHighlights.bind(this)}>see more / less highlights</button></span>
       </div>
 
     )

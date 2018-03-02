@@ -9,7 +9,6 @@ const path = require('path');
 app.use(express.static('./client/dist'))
 
 app.get('/:id', (req, res) => {
-  console.log(req.params)
   res.sendFile(path.join(__dirname + './../client/dist/index.html'));
 });
 
