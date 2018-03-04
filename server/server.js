@@ -16,7 +16,7 @@ app.get('/:id', (req, res) => {
 app.get('/highlights/reviews', (req, res) => {
   var id = req.query.id;
   var reviews;
-  var query = `SELECT text, user_id, stars FROM review WHERE business_id = "${id}"`
+  var query = `SELECT text, user_id, stars FROM review WHERE business_id = "${id}" ORDER BY stars DESC`
    db.connection.query(query, function(err, rows, fields){
     if (err) throw err
     var reviews = rows;

@@ -22,7 +22,6 @@ export default class Highlights extends React.Component {
     this.getReviewDataFromDB = this.getReviewDataFromDB.bind(this);
     this.findReviewWithKeyWord = this.findReviewWithKeyWord.bind(this);
     this.getPhotoDataFromDB = this.getPhotoDataFromDB.bind(this);
-    this.sortReviewsByRating = this.sortReviewsByRating.bind(this);
   }
 
   componentDidMount(){
@@ -53,33 +52,21 @@ export default class Highlights extends React.Component {
     let reviewHighlights = [];
     for (let i = 0; i < keyWordArr.length; i++) {
       for (let j = 0; j < reviewArr.length; j++) {
-        if (reviewArr[j][1].includes(keyWordArr[i])){
-          let reviewHighlight = helper.findHighlightSentence(`${reviewArr[j][1]}`, `${keyWordArr[i]}`);
+        if (reviewArr[j].text.includes(keyWordArr[i])){
+          let reviewHighlight = helper.findHighlightSentence(`${reviewArr[j].text}`, `${keyWordArr[i]}`);
           if (reviewHighlight === null){
             continue;
           }
           //here we can push any needed data into the HIGHLIGHT state item
-          reviewHighlights.push([reviewHighlight, keyWordArr[i], reviewArr[j][2]]);
+          reviewHighlights.push([reviewHighlight, keyWordArr[i], reviewArr[j].user_id]);
           // we set that review's text to an emptry string so we don't
           // check the same review twice.
-          reviewArr[j][1] = "";
+          reviewArr[j].text = "";
           break;
         }
       }
     }
     this.setState({highlights:reviewHighlights})
-  }
-
-  sortReviewsByRating(reviews){
-    var sorted = [];
-    for (var review in reviews) {
-        sorted.push([reviews[review].stars, reviews[review].text, reviews[review].user_id]);
-    }
-
-    sorted.sort(function(a, b) {
-        return b[0] - a[0];
-    });
-    return sorted;
   }
 
   getReviewDataFromDB(){
@@ -102,8 +89,7 @@ export default class Highlights extends React.Component {
       data: {id:restaurantID},
       success: (data) => {
         console.log('GET review success!', data);
-
-        this.setState({reviews:this.sortReviewsByRating(data)});
+        this.setState({reviews:data});
         this.checkAllReviews(data);
         this.findReviewWithKeyWord(this.state.commonWords, this.state.reviews);
       },
@@ -162,7 +148,7 @@ export default class Highlights extends React.Component {
     });
   }
 
-  toggleNumOfHighlights(){
+  toggleNumberOfHighlights(){
     if (this.state.itemsToShow === 4){
       this.setState({itemsToShow: 8})
     } else {
@@ -249,7 +235,7 @@ export default class Highlights extends React.Component {
           {highlightEntries}
         </CSSTransitionGroup>
         </div>
-        <span><button onClick={this.toggleNumOfHighlights.bind(this)}>{innerHTML}</button></span>
+        <span><button onClick={this.toggleNumberOfHighlights.bind(this)}>{innerHTML}</button></span>
       </div>
 
     )
