@@ -148,7 +148,7 @@ export default class Highlights extends React.Component {
     });
   }
 
-  seeMoreHighlights(){
+  toggleNumberOfHighlights(){
     if (this.state.itemsToShow === 4){
       this.setState({itemsToShow: 8})
     } else {
@@ -235,7 +235,7 @@ export default class Highlights extends React.Component {
           {highlightEntries}
         </CSSTransitionGroup>
         </div>
-        <span><button onClick={this.seeMoreHighlights.bind(this)}>{innerHTML}</button></span>
+        <span><button onClick={this.toggleNumberOfHighlights.bind(this)}>{innerHTML}</button></span>
       </div>
 
     )
