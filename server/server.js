@@ -13,28 +13,26 @@ app.get('/:id', (req, res) => {
 });
 
 
-app.get('/highlights/reviews', (req, res) => {
+app.get('/highlights/reviews/:id', (req, res) => {
   res.header("Access-Control-Allow-Origin", "*");
-  var id = req.query.id;
+  var id = req.params.id;
   console.log('highlights id', id)
-  var reviews;
   var query = `SELECT text, user_id, stars FROM review WHERE business_id = "${id}" ORDER BY stars DESC`
    db.connection.query(query, function(err, rows, fields){
     if (err) throw err
     var reviews = rows;
-    res.send(reviews)
+    res.header("Access-Control-Allow-Origin", "*").send(reviews)
   });
 });
 
-app.get('/highlights/photos', (req, res) => {
+app.get('/highlights/photos/:id', (req, res) => {
   res.header("Access-Control-Allow-Origin", "*");
-  var id = req.query.id;
-  var reviews;
+  var id = req.params.id;
   var query = `SELECT id, caption FROM photo WHERE business_id = "${id}"`
    db.connection.query(query, function(err, rows, fields){
     if (err) throw err
     var photos = rows;
-    res.send(photos)
+    res.header("Acess-Control-Allow-Origin", "*").send(photos)
   });
 });
 

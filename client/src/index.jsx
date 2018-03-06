@@ -71,6 +71,8 @@ export default class Highlights extends React.Component {
   }
 
   getReviewDataFromDB(){
+    var host = window.location.host.toString();
+    console.log(host)
     // this gets our rest. ID from the browser window.
     let url = window.location.href.split('/').pop();
     url = url.split('?');
@@ -85,9 +87,8 @@ export default class Highlights extends React.Component {
     let restaurantID = url[0]
 
     $.ajax({
-      url: 'http://127.0.0.1:3003/highlights/reviews',
+      url: `highlights/reviews/${url[0]}`,
       type: 'GET',
-      data: {id:restaurantID},
       success: (data) => {
         console.log('GET review success!', data);
         this.setState({reviews:data});
@@ -134,9 +135,8 @@ export default class Highlights extends React.Component {
     }
 
     $.ajax({
-      url: 'http://127.0.0.1:3003/highlights/photos',
+      url: `highlights/photos/${url[0]}`,
       type: 'GET',
-      data: {id:url[0]},
       success: (data) => {
         console.log('GET photo! success!', data);
         this.setState({photos:data})
@@ -144,7 +144,7 @@ export default class Highlights extends React.Component {
         this.setState({highlights:this.state.highlights})
       },
       error: (data) => {
-        console.log('GET failed!', data)
+        console.log('GET photo failed!', data)
       }
     });
   }

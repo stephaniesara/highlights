@@ -4,7 +4,7 @@ const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "tseliot88",
-  database: "yelp_db"
+  database: "chompy"
 });
 
 connection.connect(function(err) {
