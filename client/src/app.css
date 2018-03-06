@@ -32,7 +32,7 @@ button:hover {
 
 .text {
   padding: 10px;
-  font-size: 15px;
+  font-size: 12px;
 }
 
 .image {
@@ -43,12 +43,13 @@ button:hover {
 
 .keyword {
   /* color: #65D36D; */
+  font-size: 11px;
   color: royalblue;
   font-weight: bold;
 }
 
 .frequency {
-  font-size: 13px;
+  font-size: 11px;
   color: grey;
 }
 

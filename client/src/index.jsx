@@ -6,6 +6,7 @@ import url from 'url-parse';
 const currentUrl = url();
 import helper from './../../helpers/helper.js'
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import styles from './app.css';
 
 
 export default class Highlights extends React.Component {
@@ -94,7 +95,7 @@ export default class Highlights extends React.Component {
         this.findReviewWithKeyWord(this.state.commonWords, this.state.reviews);
       },
       error: (data) => {
-        console.log('GET failed!')
+        console.log('GET failed!', data)
       }
     });
   }
@@ -143,7 +144,7 @@ export default class Highlights extends React.Component {
         this.setState({highlights:this.state.highlights})
       },
       error: (data) => {
-        console.log('GET failed!')
+        console.log('GET failed!', data)
       }
     });
   }
@@ -159,7 +160,7 @@ export default class Highlights extends React.Component {
   render(){
     // TODO: clean this up and move it to a seperate component
     if (this.state.itemsToShow === 4){
-      var innerHTML = "Show more review highlights";
+      var innerHTML = "Show even more review highlights";
     } else {
       var innerHTML = "Show fewer review highlights";
     }
@@ -241,5 +242,5 @@ export default class Highlights extends React.Component {
     )
   }
 }
-
+window.Highlights = Highlights;
 ReactDOM.render(<Highlights />, document.getElementById('highlights'));
