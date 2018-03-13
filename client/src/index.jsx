@@ -94,6 +94,7 @@ export default class Highlights extends React.Component {
         this.setState({reviews:data});
         this.checkAllReviews(data);
         this.findReviewWithKeyWord(this.state.commonWords, this.state.reviews);
+        this.addPhotoToHighlightArr(this.state.highlights, this.state.photos)
       },
       error: (data) => {
         console.log('GET failed!', data)
@@ -160,7 +161,7 @@ export default class Highlights extends React.Component {
   render(){
     // TODO: clean this up and move it to a seperate component
     if (this.state.itemsToShow === 4){
-      var innerHTML = "Show even more review highlights";
+      var innerHTML = "Show more review highlights";
     } else {
       var innerHTML = "Show fewer review highlights";
     }
@@ -215,8 +216,8 @@ export default class Highlights extends React.Component {
 
       return (
         <div className="highlight" key={index}>
-        <span><img className="image" src={imageURL} /></span>
-        <span className="text">
+        <span><img className="highlight-image" src={imageURL} /></span>
+        <span className="highlight-text">
           <span>{preK.join(" ")}</span>
           <span className="keyword"><a href={searchLink}>{k}</a></span>
           <span>{postK.join(" ")}</span>
@@ -236,7 +237,7 @@ export default class Highlights extends React.Component {
           {highlightEntries}
         </CSSTransitionGroup>
         </div>
-        <span><button onClick={this.toggleNumberOfHighlights.bind(this)}>{innerHTML}</button></span>
+        <span><button className="num-hightlights-button" onClick={this.toggleNumberOfHighlights.bind(this)}>{innerHTML}</button></span>
       </div>
 
     )
