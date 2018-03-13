@@ -1,7 +1,3 @@
-body {
-  background-color: white;
-}
-
 a {
   color: inherit;
   text-decoration: none;
@@ -11,7 +7,11 @@ a:hover {
    color: inherit;
  }
 
- button {
+ .writereview {
+   border: 1px solid black;
+ }
+
+ .num-hightlights-button {
     background-color: Transparent;
     background-repeat:no-repeat;
     border: none;
@@ -20,7 +20,7 @@ a:hover {
     outline:none;
     color: blue;
 }
-button:hover {
+.num-hightlights-button:hover {
     text-decoration: underline;
 }
 
@@ -30,12 +30,12 @@ button:hover {
   display: flex;
 }
 
-.text {
+.highlight-text {
   padding: 10px;
   font-size: 12px;
 }
 
-.image {
+.highlight-image {
   height: 60px;
   width: 60px;
   border-radius: 5px;

@@ -1,9 +1,10 @@
 const mysql = require('mysql');
 
 const connection = mysql.createConnection({
-  host: "localhost",
+  host: "chompy-test-database.cr8yw4uwndba.us-west-1.rds.amazonaws.com",
   user: "root",
-  database: "chompy"
+  database: "chompyremote",
+  password: "chompydatabase"
 });
 
 connection.connect(function(err) {

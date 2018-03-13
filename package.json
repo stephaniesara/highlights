@@ -8,6 +8,7 @@
     "node": ">=6.13.0"
   },
   "scripts": {
+    "start": "webpack -d && node server/server.js",
     "server-start": "nodemon server/server.js",
     "dev-react": "webpack -d --watch",
     "seed-database": "node seed.js",
@@ -36,6 +37,7 @@
     "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor",
     "jest": "^22.4.2",
     "nodemon": "^1.15.1",
-    "webpack": "^3.11.0"
+    "webpack": "^3.11.0",
+    "webpack-dev-middleware": "^3.0.1"
   }
 }
