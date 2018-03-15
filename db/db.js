@@ -1,10 +1,24 @@
 const mysql = require('mysql');
 
+// const connection = mysql.createConnection({
+//   host: "chompy-test-database.cr8yw4uwndba.us-west-1.rds.amazonaws.com",
+//   user: "root",
+//   database: "chompyremote",
+//   password: "chompydatabase"
+// });
+
+// const connection = mysql.createConnection({
+//   host: "localhost",
+//   user: "root",
+//   database: "yelp_db",
+//   password: ""
+// });
+
 const connection = mysql.createConnection({
-  host: "chompy-test-database.cr8yw4uwndba.us-west-1.rds.amazonaws.com",
+  host: "localhost",
   user: "root",
-  database: "chompyremote",
-  password: "chompydatabase"
+  database: "yelp_db_reviews",
+  password: ""
 });
 
 connection.connect(function(err) {

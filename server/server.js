@@ -21,6 +21,7 @@ app.get('/highlights/reviews/:id', (req, res) => {
    db.connection.query(query, function(err, rows, fields){
     if (err) throw err
     var reviews = rows;
+    console.log(reviews.length)
     res.header("Access-Control-Allow-Origin", "*").send(reviews)
   });
 });
