@@ -20,6 +20,7 @@
     "body-parser": "^1.18.2",
     "css-loader": "^0.28.10",
     "express": "^4.16.2",
+    "faker": "^4.1.0",
     "fs": "0.0.1-security",
     "jquery": "^3.3.1",
     "mongoose": "^5.0.6",

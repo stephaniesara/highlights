@@ -1,3 +1,5 @@
+-- create database of just reviews from original multitable yelp database
+
 create database yelp_db_reviews;
 
 use yelp_db_reviews;

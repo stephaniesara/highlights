@@ -1,3 +1,5 @@
+-- copy table of 5M original Yelp reviews into a new table 
+
 use yelp_db_reviews;
 
 create table review_copy like review;
