@@ -17,7 +17,7 @@ const mysql = require('mysql');
 const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
-  database: "yelp_db_reviews",
+  database: "reviews",
   password: ""
 });
 
