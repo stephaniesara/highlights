@@ -1,0 +1,23 @@
+config:
+  target: "http://localhost:3003/highlights/reviews"
+  http:
+    tls:
+      rejectUnauthorized: false
+  phases:
+    - duration: 10
+      arrivalRate: 25
+  processor: "./testFunctions.js"
+
+scenarios:
+  - name: "Get reviews for a business_id"
+    flow:
+      # call generateRandomData() to create the name, email, and password variables
+      - loop:
+        - function: "getRandomBusinessId"
+        - get:
+            url: "/{{ business_id }}"
+        count: 60
+          # json:
+          #   business_id: "{{ business_id }}"
+      # Print the data we're sending while debugging the script:
+      # - log: "Sent a get request to /{{ business_id }}"

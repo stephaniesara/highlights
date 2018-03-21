@@ -14,16 +14,24 @@ app.get('/:id', (req, res) => {
 
 
 app.get('/highlights/reviews/:id', (req, res) => {
-  res.header("Access-Control-Allow-Origin", "*");
+  // res.header("Access-Control-Allow-Origin", "*");
   var id = req.params.id;
-  console.log('highlights id', id)
-  var query = `SELECT text, user_id, stars FROM review WHERE business_id = "${id}" ORDER BY stars DESC`
-   db.connection.query(query, function(err, rows, fields){
-    if (err) throw err
-    var reviews = rows;
-    console.log(reviews.length)
-    res.header("Access-Control-Allow-Origin", "*").send(reviews)
-  });
+  // console.log('highlights id', id)
+  // var query = `SELECT text, user_id, stars FROM review WHERE business_id = "${id}" ORDER BY stars DESC`
+  // var query = `SELECT text, user_id, stars FROM review WHERE business_id = "${id}"`
+  // var query = `SELECT user_id, stars FROM review WHERE business_id = "${id}"`
+  //  db.connection.query(query, function(err, rows, fields){
+  //   if (err) throw err
+  //   // var reviews = rows;
+  //   // console.log(reviews.length)
+  //   res.header("Access-Control-Allow-Origin", "*").send(rows)
+  // });
+  var query = `select text from review where business_id = '${id}'`;
+  db.connection.query(query, (err, rows, fields) => {
+    if (err) throw err;
+    res.send(rows);
+  })
+  // res.header("Access-Control-Allow-Origin", "*").send('test');
 });
 
 app.get('/highlights/photos/:id', (req, res) => {
