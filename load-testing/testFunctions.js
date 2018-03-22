@@ -4,7 +4,7 @@ module.exports = {
 	getRandomBusinessId
 };
 
-const ids = require('./business_ids_174567.json');
+const ids = require('../business_ids_174567.json');
 
 function getRandomBusinessId(userContext, events, done) {
 	const randInd = Math.floor(Math.random() * 174567);

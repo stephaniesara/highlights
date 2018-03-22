@@ -20,6 +20,7 @@
     "body-parser": "^1.18.2",
     "cassandra-driver": "^3.4.1",
     "css-loader": "^0.28.10",
+    "csv-write-stream": "^2.0.0",
     "express": "^4.16.2",
     "faker": "^4.1.0",
     "fs": "0.0.1-security",
@@ -30,6 +31,7 @@
     "react-dom": "^16.2.0",
     "react-transition-group": "^1.2.1",
     "request": "^2.83.0",
+    "save": "^2.3.2",
     "style-loader": "^0.20.2",
     "url": "^0.11.0",
     "url-parse": "^1.2.0"
