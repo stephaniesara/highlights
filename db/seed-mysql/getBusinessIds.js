@@ -3,7 +3,7 @@ const Promise = require('bluebird');
 const fs = Promise.promisifyAll(require('fs'));
 const databaseName = 'reviews';
 const tableName = 'review';
-const limit = 100000;
+const limit = 174567;
 
 var db = mysql.createConnection({
 	url: 'localhost',

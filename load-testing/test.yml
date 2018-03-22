@@ -1,11 +1,11 @@
 config:
   target: "http://localhost:3003/highlights/reviews"
-  http:
-    tls:
-      rejectUnauthorized: false
+  # http:
+  #   tls:
+  #     rejectUnauthorized: false
   phases:
     - duration: 10
-      arrivalRate: 25
+      arrivalRate: 20
   processor: "./testFunctions.js"
 
 scenarios:
@@ -16,7 +16,7 @@ scenarios:
         - function: "getRandomBusinessId"
         - get:
             url: "/{{ business_id }}"
-        count: 60
+        count: 100
           # json:
           #   business_id: "{{ business_id }}"
       # Print the data we're sending while debugging the script:

@@ -1,10 +1,11 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-const db = require('./../db/db.js')
+// const db = require('./../db/db.js')
 const url = require('url-parse');
 const currentUrl = url();
 const path = require('path');
+const pool = require('./../db/dbPool.js')
 
 app.use(express.static('./client/dist'))
 
@@ -26,10 +27,15 @@ app.get('/highlights/reviews/:id', (req, res) => {
   //   // console.log(reviews.length)
   //   res.header("Access-Control-Allow-Origin", "*").send(rows)
   // });
-  var query = `select text from review where business_id = '${id}'`;
-  db.connection.query(query, (err, rows, fields) => {
+  var query = `select text, user_id, stars from review where business_id = '${id}' order by stars desc`;
+  // db.connection.query(query, (err, rows, fields) => {
+  //   if (err) throw err;
+  //   res.send(rows);
+  // })
+  pool.query(query, (err, rows, fields) => {
     if (err) throw err;
     res.send(rows);
+    // res.send('test')
   })
   // res.header("Access-Control-Allow-Origin", "*").send('test');
 });
