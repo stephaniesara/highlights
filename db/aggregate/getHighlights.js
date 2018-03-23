@@ -56,15 +56,16 @@ class Highlights {
         if (helper.captionHasKeyword(keyword, caption)){
           // keywordArr[i].push(captionArr[j].id)
           keywordArr[i][3] = captionArr[j].id; // overwrite the user_id field with the photo_id
+          keywordArr[i][4] = 1;
           captionArr[j].caption = "";
           // this.setState({photos:this.state.photos})
           break;
         }
       }
       // if wanted to use structure where fifth field in highlights arr is photo url
-      // if (keywordArr[i].length === 4) {
-	      // keywordArr[i].push(keywordArr[i][3]);
-      // }
+      if (keywordArr[i].length === 4) {
+	      keywordArr[i][4] = 0;
+      }
     }
   }
 }

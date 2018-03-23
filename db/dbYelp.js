@@ -18,7 +18,6 @@ const pool = mysql.createPool({
 	connectionLimit: 100,
   host: "localhost",
   user: "root",
-  // database: "reviews",
   database: "yelp_db",
   password: ""
 });

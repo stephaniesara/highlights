@@ -26,14 +26,14 @@ let getRow = async (n) => {
 		row.push(highlight[1]); // keyword
 		row.push(highlight[2]); // count
 		row.push(highlight[3]); // photo_url
+		row.push(highlight[4]); // is_business_photo
 		restaurantRows.push(row.join(','));
 	})
 	return restaurantRows.join('\r\n');
 }
 
-let writeFiles = async (n = 1, max = 10) => {
-	// let isReady = true;
-	var header = ['iterator', 'business_id', 'sentence', 'keyword', 'count', 'photo_url'];
+let writeFiles = async (n = 1, max = 10000) => {
+	var header = ['iterator', 'business_id', 'sentence', 'keyword', 'count', 'photo_url', 'is_business_photo'];
 	var isReady = stream.write(header.join(',') + '\r\n');
 	while(n <= max && isReady) {
 		if (n === max) {
@@ -51,51 +51,3 @@ let writeFiles = async (n = 1, max = 10) => {
 }
 
 writeFiles();
-
-
-
-
-// var csvWriter = require('csv-write-stream');
-// var writer = csvWriter({sendHeaders: false});
-
-// writer.pipe(fs.createWriteStream(writeFile));
-
-
-// var writeRows = () => {
-// 	return new Promise((res, rej) => {
-// 		for (var i = 1; i <= max; i++) {
-
-// 		}
-
-// 	})
-// 	for (var i = 1; i <= max; i++) {
-// 		writer.write({iterator: 1, business_id: 'test', highlight: 'anothertest'});
-// 		// writer.end();
-// 	}
-// }
-
-// const seedRows = () => {
-// 	// loop through all iterators
-// 		// get business_id from 174k
-// 		// calculate highlight
-// 		// create row: iterator / business_id / highlight
-// 		// write row to csv file
-
-// 	for (var i = 0; i < max; i++) {
-// 		var row = [];
-// 		row.push(i);
-// 		row.push(JSON.stringify(business_ids[i % numBusinessIds].business_id));
-// 		var highlight = 'test';
-// 		row.push(highlight + '\r\n');
-// 		var rowToAppend = row.join(',');
-// 		fs.appendFile(writeFile, rowToAppend, 'utf8');
-// 		// .then(() => {
-// 		// 	console.log('inserted row')
-// 		// })
-// 		// .catch(error => {
-// 		// 	console.log('error')
-// 		// })
-// 	}
-// }
-
-// seedRows();

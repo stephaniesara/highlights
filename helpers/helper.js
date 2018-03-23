@@ -33,6 +33,22 @@ function findKeyWordsInReview(obj, str) {
   return obj;
 };
 
+function filterKeyWordsWithCount(wordsObj) {
+  let topWords = Object.keys(wordsObj).sort(function(a,b){return wordsObj[b]-wordsObj[a]})
+  // console.log(wordsObj)
+  var result = {};
+  // topWords.forEach(elem => {
+  //   result[elem] = wordsObj[elem];
+  // })
+  for (i = 0; i < 8; i++) {
+    result[topWords[i]] = wordsObj[topWords[i]];
+  }
+  // console.log(result);
+  return result;
+  // return [topWords[0], topWords[1], topWords[2],
+  // topWords[3], topWords[4], topWords[5], topWords[6], topWords[7]]
+}
+
 function filterKeyWords(wordsObj) {
   let topWords = Object.keys(wordsObj).sort(function(a,b){return wordsObj[b]-wordsObj[a]})
 
@@ -60,6 +76,7 @@ return caption.toLowerCase().includes(keyword) ? true : false;
 
 module.exports.removePunctuation = removePunctuation;
 module.exports.findKeyWordsInReview = findKeyWordsInReview;
+module.exports.filterKeyWordsWithCount = filterKeyWordsWithCount;
 module.exports.filterKeyWords = filterKeyWords;
 module.exports.findHighlightSentence = findHighlightSentence;
 module.exports.captionHasKeyword = captionHasKeyword;
