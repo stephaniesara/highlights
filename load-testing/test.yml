@@ -1,5 +1,6 @@
 config:
-  target: "http://localhost:3003/highlights/reviews"
+  # target: "http://localhost:3003/highlights/reviews"
+  target: "http://localhost:3003/highlights"
   # http:
   #   tls:
   #     rejectUnauthorized: false
@@ -13,9 +14,9 @@ scenarios:
     flow:
       # call generateRandomData() to create the name, email, and password variables
       - loop:
-        - function: "getRandomBusinessId"
+        - function: "getRandomBusinessIterator"
         - get:
-            url: "/{{ business_id }}"
+            url: "/{{ iterator }}"
         count: 100
           # json:
           #   business_id: "{{ business_id }}"
