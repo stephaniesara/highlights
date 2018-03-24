@@ -82,15 +82,35 @@ module.exports = (business_id) => {
 			highlights.checkAllReviews(data);
 			var commonWords = Object.keys(highlights.commonWords);
 			highlights.findReviewWithKeyWordAndCount(commonWords, highlights.reviews);
+			
+			// console.log('highlights only');
+			// console.log(highlights.highlights)
 
-			const query = `select id, caption from photo where business_id = '${business_id}'`;
-			pool.query(query, (err, data, fields) => {
-				if (err) rej (err);
-				// highlights.photos = data;
-				highlights.addPhotoToHighlightArr(highlights.highlights, data)
-				// console.log(highlights.highlights);
+			if (highlights.highlights.length === 0) {
+				// console.log(highlights.reviews)
+				var dummyHighlight = [];
+				dummyHighlight.push('This is a dummy highlight. Why? Because these reviews are in French or German.');
+				dummyHighlight.push('dummy');
+				dummyHighlight.push(1);
+				dummyHighlight.push(highlights.reviews[0].user_id); // use photo URL of user who wrote first returned review
+				dummyHighlight.push(0);
+				highlights.highlights.push(dummyHighlight);
 				res(highlights.highlights);
-			})
+			} else {
+				// console.log('getting photos!')
+				const query = `select id, caption from photo where business_id = '${business_id}'`;
+				pool.query(query, (err, data, fields) => {
+					if (err) rej (err);
+					// highlights.photos = data;
+					highlights.addPhotoToHighlightArr(highlights.highlights, data)
+					
+					// console.log('with photos')
+					// console.log(highlights.highlights);
+					res(highlights.highlights);
+				})
+				
+			}
+
 
 			// res(highlights.highlights);
 		});

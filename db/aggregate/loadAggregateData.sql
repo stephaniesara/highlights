@@ -11,7 +11,7 @@ create table highlight (
 	key `by_iterator` (`iterator`)
 );
 
-load data infile '/Users/stephaniesarachong/Dropbox/*HackReactor/SDC/highlights/db/aggregate/aggregateData.csv'
+load data infile '/Users/stephaniesarachong/Dropbox/*HackReactor/SDC/highlights/db/aggregate/aggregateData2.csv'
 into table highlight
 fields terminated by ','
 enclosed by '"'
