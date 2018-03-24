@@ -1,24 +1,18 @@
 config:
-  # target: "http://localhost:3003/highlights/reviews"
-  target: "http://localhost:3003/highlights"
-  # http:
-  #   tls:
-  #     rejectUnauthorized: false
+  target: "http://localhost:3003/highlights/mySQL"
+  # target: "http://localhost:3003/highlights/Cassandra"
   phases:
     - duration: 10
       arrivalRate: 20
   processor: "./testFunctions.js"
 
 scenarios:
-  - name: "Get reviews for a business_id"
+  - name: "Get reviews for a business iterator"
     flow:
-      # call generateRandomData() to create the name, email, and password variables
       - loop:
         - function: "getRandomBusinessIterator"
         - get:
             url: "/{{ iterator }}"
         count: 100
-          # json:
-          #   business_id: "{{ business_id }}"
       # Print the data we're sending while debugging the script:
       # - log: "Sent a get request to /{{ business_id }}"

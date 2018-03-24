@@ -1,16 +1,18 @@
 const Promise = require('bluebird');
 const fs = Promise.promisifyAll(require('fs'));
-const writeFile = 'dataAll.csv';
+const writeFile = 'data10M.csv';
 var readFile = './aggregateData2.csv';
 const numBusinessIds = 174567;
+const maxIterator = 10000000;
 
 var stream = fs.createWriteStream(writeFile);
 
 
 let getRows = (entries, currRowInd, n, rows) => {
-	var target = n % numBusinessIds; // target iterator 
+	var target = n % numBusinessIds || numBusinessIds; // target iterator 
 	while (true) {
 		var currRow = entries[currRowInd];
+		if (currRow === undefined) break;
 		var splitInd = currRow.indexOf(',');
 		if (target === Number(currRow.substring(0, splitInd))) { // target iterator === curr iterator
 			rows.push(n + currRow.substring(splitInd));
@@ -22,12 +24,12 @@ let getRows = (entries, currRowInd, n, rows) => {
 	return currRowInd;
 }
 
-let writeFiles = async (entries, currRowInd = 1, n = 1, max = numBusinessIds + 10) => {
-	var isReady = stream.write(entries[0] + '\r\n');
+let writeFiles = async (entries, currRowInd = 0, n = 1, max = maxIterator) => {
+	var isReady = stream.write(entries[currRowInd] + '\r\n');
 	var rows;
 
 	while(n <= max && isReady) {
-		if (n === numBusinessIds) {
+		if (n % numBusinessIds === 1) {
 			currRowInd = 1;
 		}
 		rows = [];	
@@ -47,4 +49,4 @@ let writeFiles = async (entries, currRowInd = 1, n = 1, max = numBusinessIds + 1
 }
 
 fs.readFileAsync(readFile, 'UTF-8')
-.then((csv) => writeFiles(csv.split('\r\n')));
+.then((csv) => writeFiles(csv.split('\r\n')))

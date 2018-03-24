@@ -1,7 +1,8 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-const db = require('./../db/dbHighlight.js');
+const dbMySQL = require('./../db/dbMySQL.js');
+const dbCassandra = require('./../db/dbCassandra.js');
 // const db = require('./../db/db.js')
 const url = require('url-parse');
 const currentUrl = url();
@@ -15,11 +16,32 @@ app.get('/:id', (req, res) => {
 });
 
 app.get('/highlights/:iterator', (req, res) => {
+  // var iterator = req.params.iterator;
+  // var query = `select sentence, keyword, count, photo_url, is_business_photo from highlight where iterator = ${iterator} order by count desc`;
+  // dbMySQL.query(query, (err, rows, fields) => {
+  //   if (err) throw err;
+  //   res.send(rows);
+  // })
+  res.send('test')
+});
+
+// LOAD-TEST MySQL
+app.get('/highlights/mySQL/:iterator', (req, res) => {
   var iterator = req.params.iterator;
   var query = `select sentence, keyword, count, photo_url, is_business_photo from highlight where iterator = ${iterator} order by count desc`;
-  db.query(query, (err, rows, fields) => {
+  dbMySQL.query(query, (err, rows, fields) => {
     if (err) throw err;
     res.send(rows);
+  })
+});
+
+// LOAD-TEST Cassandra
+app.get('/highlights/Cassandra/:iterator', (req, res) => {
+  var iterator = req.params.iterator;
+  var query = `select sentence, keyword, count, photo_url, is_business_photo from highlight where iterator = ${iterator} order by count desc`;
+  dbCassandra.execute(query, (err, result) => {
+    if (err) throw err;
+    res.send(result.rows);
   })
 });
 

@@ -5,7 +5,7 @@ module.exports = {
 };
 
 function getRandomBusinessIterator(userContext, events, done) {
-	const randIterator = Math.floor(Math.random() * 174567);
+	const randIterator = Math.floor(Math.random() * 10000000);
 	userContext.vars.iterator = randIterator;
 	return done();
 }
