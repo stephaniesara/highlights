@@ -27,6 +27,7 @@
     "jquery": "^3.3.1",
     "mongoose": "^5.0.6",
     "mysql": "^2.15.0",
+    "newrelic": "^3.2.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-transition-group": "^1.2.1",
@@ -42,6 +43,7 @@
     "babel-preset-react": "^6.24.1",
     "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor",
     "jest": "^22.4.2",
+    "morgan": "^1.9.0",
     "nodemon": "^1.15.1",
     "webpack": "^3.11.0",
     "webpack-dev-middleware": "^3.0.1"

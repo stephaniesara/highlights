@@ -10,3 +10,12 @@ client.connect(function (err) {
 });
 
 module.exports = client;
+
+
+
+
+// pooling: {
+//        coreConnectionsPerHost: {
+//          [distance.local] : 10,
+//          [distance.remote] : 10
+//        }

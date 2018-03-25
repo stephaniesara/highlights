@@ -1,6 +1,7 @@
 config:
-  target: "http://localhost:3003/highlights/mySQL"
+  # target: "http://localhost:3003/highlights/mySQL"
   # target: "http://localhost:3003/highlights/Cassandra"
+  target: "http://localhost:3003/highlights"
   phases:
     - duration: 10
       arrivalRate: 20
@@ -15,4 +16,4 @@ scenarios:
             url: "/{{ iterator }}"
         count: 100
       # Print the data we're sending while debugging the script:
-      # - log: "Sent a get request to /{{ business_id }}"
+      # - log: "Sent a get request to /{{ iterator }}"
