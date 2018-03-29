@@ -11,8 +11,8 @@ import { renderToString } from 'react-dom/server';
 import Highlights from '../client/src/Highlights.jsx';
 import html from './html.js';
 
-// app.use(express.static('./dist'))
-app.use('/bundle.js', express.static('./dist/bundle.js'));
+ app.use(express.static('./dist'))
+//app.use('/bundle.js', express.static('./dist/bundle.js'));
 
 app.get('/:iterator', (req, res) => {
   var iterator = req.params.iterator;
