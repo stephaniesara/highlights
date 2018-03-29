@@ -13,9 +13,9 @@ import { renderToString } from 'react-dom/server';
 import Highlights from '../client/src/Highlights.jsx';
 import Html from '../client/src/Html.js';
 
-const morgan = require('morgan');
+// const morgan = require('morgan');
 
-app.use(morgan('dev'));
+// app.use(morgan('dev'));
 
 // app.use(express.static('./client/dist'))
 
@@ -33,18 +33,20 @@ app.use(morgan('dev'));
 //   next();
 // });
 
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
+// app.use(function(req, res, next) {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//   next();
+// });
+
+app.use(express.static('./dist'))
 
 app.get('/highlights/:iterator', (req, res) => {
-  console.log('app get highlights iterator')
+  // console.log('app get highlights iterator')
   var iterator = req.params.iterator;
-  console.log(iterator)
+  // console.log(iterator)
   var query = `select sentence, keyword, count, photo_url, is_business_photo from highlight where iterator = ${iterator} order by count desc`;
-  console.log('about to query cassandra!')
+  // console.log('about to query cassandra!')
   dbCassandra.execute(query, (err, result) => {
     if (err) throw err;
 
@@ -54,14 +56,8 @@ app.get('/highlights/:iterator', (req, res) => {
       highlights: result.rows
   	};
 
-  	// const body = renderToString(<Highlights props=props/>);
     const body = renderToString(React.createElement(Highlights, props));
-    const title = 'test title'
-    console.log('test1')
-  	res.send(Html(body, props, title))
-    console.log('test')
-    // res.send(`<h1>hello world</h1>`)
-    // res.send(result.rows);
+  	res.send(Html(body, JSON.stringify(props), 'Yelp Highlights'))
   })
 });
 

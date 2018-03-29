@@ -2,22 +2,21 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Highlights from './Highlights.jsx';
 
-// ReactDOM.render(<Highlights />, document.getElementById('highlights'));
+// let url = window.location.href.split('/').pop();
+// url = url.split('?');
+// if (url.length > 1) {
+//   let urlParams = url[1].split('&');
+//   urlParams = urlParams.reduce((acc, param) => {
+//     param = param.split('=');
+//     acc[param[0]] = param[1];
+//     return acc;
+//   }, {id: url[0]});
+// }
+// let restaurantID = url[0]
 
-// let url = window.location.href.split("/").pop();
-// console.log(url);
-console.log('index.js')
-// ReactDOM.hydrate(<Highlights props={window.initState}/>, document.getElementById('highlights'));
-
-// ReactDOM.hydrate(<Highlights />, document.getElementById('highlights'));
-// window.Highlights = Highlights;
-
-
-let url = window.location.href.split("/").pop();
-url.charAt(url.length - 1) === "/" ? url.substr(0, url.length - 1) : url;
-debugger
+let iterator = window.location.href.split('/').pop();
 
 ReactDOM.hydrate(
-  React.createElement(Highlights, 'TEST PROPS'),
+  React.createElement(Highlights, window.initState),
   document.getElementById("highlights")
 );

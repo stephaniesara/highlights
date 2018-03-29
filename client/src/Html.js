@@ -13,9 +13,8 @@ const Html = (body, props, title) => `
     </head>
     <body style="margin:0">
       <div id="highlights">${body}</div>
-      <script>console.log('test here in index')</script>
-      <script src="/bundle.js" type="text/html"></script>
-      <script>console.log('test AGAIN here in index')</script>
+      <script>window.initState = ${props};</script>
+      <script src="/bundle.js" type="application/javascript"></script>
     </body>
   </html>
 `;

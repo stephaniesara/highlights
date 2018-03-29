@@ -10,8 +10,8 @@ import styles from './app.css';
 
 export default class Highlights extends React.Component {
   constructor(props){
-    console.log('highlitsh!')
-    console.log(props)
+    // console.log('highlitsh!')
+    // console.log(props)
     super(props)
     // if (props && props.isLoaded) {
       this.state = {
@@ -89,7 +89,7 @@ export default class Highlights extends React.Component {
     const highlights = this.state.highlights;
 
     const highlightEntries = highlights.slice(0, this.state.itemsToShow).map((highlight, index) => {
-      console.log(highlight)
+      // console.log(highlight)
       let text = highlight.sentence.split(' ');
       let keyWord = highlight.keyword;
       let frequency = highlight.count;
