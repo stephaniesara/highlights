@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 const nodeExternals = require('webpack-node-externals');
 const path = require('path');
-var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+// var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
   entry: './server/server.js',
