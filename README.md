@@ -7,4 +7,4 @@ http://localhost:3003/0a2O150ytxrDjDzXNfRWkA
 http://localhost:3003/--9e1ONYQuAa-CB_Rrw7Tw
 http://localhost:3003/3uIXuw878fNjxZ2Li1diFg
 
-# test change
+# client side rendered app
