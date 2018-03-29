@@ -4,14 +4,15 @@ const app = express();
 // const bodyParser = require('body-parser');
 const dbCassandra = require('./../db/dbCassandra.js');
 // const url = require('url-parse');
-// const path = require('path');
+const path = require('path');
 
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import Highlights from '../client/src/Highlights.jsx';
 import html from './html.js';
 
-app.use(express.static('./dist'))
+// app.use(express.static('./dist'))
+app.use('/bundle.js', express.static('./dist/bundle.js'));
 
 app.get('/:iterator', (req, res) => {
   var iterator = req.params.iterator;
