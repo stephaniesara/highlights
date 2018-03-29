@@ -11,6 +11,9 @@
     "start": "webpack -d && node server/server.js",
     "server-start": "nodemon server/server.js",
     "dev-react": "webpack -d --watch",
+    "ssr": "webpack --config webpack.client.config.js -d && webpack -d --config webpack.server.config.js -d && node dist/server.js",
+    "build-ssr": "webpack --config webpack.client.config.js -d && webpack -d --config webpack.server.config.js -d",
+    "run-ssr": "node dist/server.js",
     "seed-database": "node seed.js",
     "test": "jest"
   },
@@ -22,6 +25,7 @@
     "css-loader": "^0.28.10",
     "csv-write-stream": "^2.0.0",
     "express": "^4.16.2",
+    "extract-text-webpack-plugin": "^3.0.2",
     "faker": "^4.1.0",
     "fs": "0.0.1-security",
     "jquery": "^3.3.1",
@@ -39,6 +43,7 @@
   },
   "devDependencies": {
     "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor",
@@ -46,6 +51,7 @@
     "morgan": "^1.9.0",
     "nodemon": "^1.15.1",
     "webpack": "^3.11.0",
-    "webpack-dev-middleware": "^3.0.1"
+    "webpack-dev-middleware": "^3.0.1",
+    "webpack-node-externals": "^1.6.0"
   }
 }
