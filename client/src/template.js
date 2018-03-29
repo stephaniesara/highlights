@@ -5,7 +5,7 @@
  * application code into before sending it to the client as regular HTML.
  * Note we're returning a template string from this function.
  */
-const Html = (body, props) => `
+const template = (body, props) => `
   <!DOCTYPE html>
   <html>
     <head>
@@ -19,4 +19,4 @@ const Html = (body, props) => `
   </html>
 `;
 
-export default Html;
+export default template;

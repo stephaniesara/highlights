@@ -10,65 +10,12 @@ import styles from './app.css';
 
 export default class Highlights extends React.Component {
   constructor(props){
-    // console.log('highlitsh!')
-    // console.log(props)
     super(props)
-    // if (props && props.isLoaded) {
       this.state = {
         highlights: props.highlights,
         itemsToShow: 4,
       }
-      // window.initState = props;
-    // } else {
-    //   this.state = {
-    //     highlights: [],
-    //     itemsToShow: 4
-    //   }
-    // }
-    // this.getHighlightsFromDB = this.getHighlightsFromDB.bind(this);
   }
-
-  // componentDidMount(){
-  //   console.log('component did mount')
-  //   if (!this.props || !this.props.isLoaded) {
-  //     console.log('component did truth statement')
-  //     this.getHighlightsFromDB();
-  //   }
-  // }
-
-  // getHighlightsFromDB() {
-  //   if (this.state.isLoaded) {
-  //     console.log('*******************************')
-  //     console.log('this state is already loaded');
-  //   } else {
-  //     var host = window.location.host.toString();
-  //     console.log(host)
-  //     // this gets our rest. ID from the browser window.
-  //     let url = window.location.href.split('/').pop();
-  //     url = url.split('?');
-  //     if (url.length > 1) {
-  //       let urlParams = url[1].split('&');
-  //       urlParams = urlParams.reduce((acc, param) => {
-  //         param = param.split('=');
-  //         acc[param[0]] = param[1];
-  //         return acc;
-  //       }, {id: url[0]});
-  //     }
-  //     let restaurantID = url[0]
-
-  //     $.ajax({
-  //       url: `highlights/${url[0]}`,
-  //       type: 'GET',
-  //       success: (data) => {
-  //         console.log('GET highlights success!', data);
-  //         this.setState({highlights:data});
-  //       },
-  //       error: (data) => {
-  //         console.log('GET failed!', data)
-  //       }
-  //     });
-  //   }
-  // }
 
   toggleNumberOfHighlights(){
     if (this.state.itemsToShow === 4){
