@@ -9,7 +9,7 @@ const path = require('path');
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import Highlights from '../client/src/Highlights.jsx';
-import template from '../client/src/template.js';
+import html from './html.js';
 
 app.use(express.static('./dist'))
 
@@ -24,7 +24,7 @@ app.get('/highlights/:iterator', (req, res) => {
   	};
 
     const body = renderToString(React.createElement(Highlights, props));
-  	res.send(template(body, JSON.stringify(props)))
+  	res.send(html(body, JSON.stringify(props)))
   })
 });
 
