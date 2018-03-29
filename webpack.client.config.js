@@ -1,5 +1,6 @@
 var webpack = require('webpack');
 var path = require('path');
+var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 // Build directory is where the bundle file will be placed
 var BUILD_DIR = path.resolve(__dirname, 'dist');
@@ -14,6 +15,7 @@ var config = {
         test: /\.jsx?/,
         include: APP_DIR,
         loader: 'babel-loader',
+        exclude: /node_modules/,
         query: {
           presets: ['env', 'react']
         }
@@ -30,7 +32,14 @@ var config = {
   output: {
     path: BUILD_DIR,
     filename: 'bundle.js'
-  }
+  },
+  plugins: [
+    // new BundleAnalyzerPlugin(),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': '"production"'
+    }),
+    new webpack.optimize.UglifyJsPlugin()
+  ]
 };
 
 module.exports = config;

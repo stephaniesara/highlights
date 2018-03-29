@@ -1,9 +1,9 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import $ from 'jquery';
+// import ReactDOM from 'react-dom';
+// import $ from 'jquery';
 import url from 'url-parse';
 const currentUrl = url();
-import helper from './../../helpers/helper.js'
+// import helper from './../../helpers/helper.js'
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import styles from './app.css';
 

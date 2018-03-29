@@ -1,10 +1,10 @@
 require('newrelic');
 const express = require('express');
 const app = express();
-const bodyParser = require('body-parser');
+// const bodyParser = require('body-parser');
 const dbCassandra = require('./../db/dbCassandra.js');
-const url = require('url-parse');
-const path = require('path');
+// const url = require('url-parse');
+// const path = require('path');
 
 import React from 'react';
 import { renderToString } from 'react-dom/server';
@@ -13,7 +13,7 @@ import html from './html.js';
 
 app.use(express.static('./dist'))
 
-app.get('/highlights/:iterator', (req, res) => {
+app.get('/:iterator', (req, res) => {
   var iterator = req.params.iterator;
   var query = `select sentence, keyword, count, photo_url, is_business_photo from highlight where iterator = ${iterator} order by count desc`;
   dbCassandra.execute(query, (err, result) => {
