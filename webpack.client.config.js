@@ -1,6 +1,7 @@
 var webpack = require('webpack');
 var path = require('path');
-var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+// var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 // Build directory is where the bundle file will be placed
 var BUILD_DIR = path.resolve(__dirname, 'dist');

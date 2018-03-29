@@ -1,8 +1,8 @@
 config:
   # target: "http://localhost:3003/highlights/mySQL"
   # target: "http://localhost:3003/highlights/Cassandra"
-  target: "http://localhost:3003"
-  # target: "http://52.53.128.188:3003"
+  # target: "http://localhost:3003"
+  target: "http://52.53.128.188:3003"
   phases:
     - duration: 10
       arrivalRate: 20
