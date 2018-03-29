@@ -2,7 +2,7 @@ var webpack = require('webpack');
 var path = require('path');
 
 // Build directory is where the bundle file will be placed
-var BUILD_DIR = path.resolve(__dirname, 'client/dist');
+var BUILD_DIR = path.resolve(__dirname, 'dist');
 // App directory is where all of your raw JSX files will be placed
 var APP_DIR = path.resolve(__dirname, 'client/src');
 
@@ -15,7 +15,7 @@ var config = {
         include: APP_DIR,
         loader: 'babel-loader',
         query: {
-          presets: ['es2015', 'react']
+          presets: ['env', 'react']
         }
       },
       {
