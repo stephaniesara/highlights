@@ -51,13 +51,13 @@ app.get('/highlights/:iterator', (req, res) => {
     if (err) throw err;
 
   	const props = {
-  		isLoaded: true,
-      iterator: iterator,
+  		// isLoaded: true,
+      // iterator: iterator,
       highlights: result.rows
   	};
 
     const body = renderToString(React.createElement(Highlights, props));
-  	res.send(Html(body, JSON.stringify(props), 'Yelp Highlights'))
+  	res.send(Html(body, JSON.stringify(props)))
   })
 });
 

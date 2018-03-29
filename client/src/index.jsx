@@ -14,7 +14,7 @@ import Highlights from './Highlights.jsx';
 // }
 // let restaurantID = url[0]
 
-let iterator = window.location.href.split('/').pop();
+// let iterator = window.location.href.split('/').pop();
 
 ReactDOM.hydrate(
   React.createElement(Highlights, window.initState),

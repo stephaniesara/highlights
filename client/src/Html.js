@@ -5,13 +5,13 @@
  * application code into before sending it to the client as regular HTML.
  * Note we're returning a template string from this function.
  */
-const Html = (body, props, title) => `
+const Html = (body, props) => `
   <!DOCTYPE html>
   <html>
     <head>
-      <title>${title}</title>
+      <title>Yelp Highlights</title>
     </head>
-    <body style="margin:0">
+    <body>
       <div id="highlights">${body}</div>
       <script>window.initState = ${props};</script>
       <script src="/bundle.js" type="application/javascript"></script>
