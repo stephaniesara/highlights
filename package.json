@@ -8,11 +8,12 @@
     "node": ">=6.13.0"
   },
   "scripts": {
-    "start": "webpack -d && node server/server.js",
+    "start": "node dist/server.js",
+    "prod": "webpack -p --config webpack.client.config.js && webpack -p --config webpack.server.config.js && node dist/server.js",
     "server-start": "nodemon server/server.js",
     "dev-react": "webpack -d --watch",
-    "ssr": "webpack --config webpack.client.config.js -d && webpack -d --config webpack.server.config.js -d && node dist/server.js",
-    "build-ssr": "webpack --config webpack.client.config.js -d && webpack -d --config webpack.server.config.js -d",
+    "ssr": "webpack -d --config webpack.client.config.js && webpack -d --config webpack.server.config.js -d && node dist/server.js",
+    "build-ssr": "webpack -d --config webpack.client.config.js && webpack -d --config webpack.server.config.js",
     "run-ssr": "node dist/server.js",
     "seed-database": "node seed.js",
     "test": "jest"
