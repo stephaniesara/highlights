@@ -2,7 +2,8 @@ config:
   # target: "http://localhost:3003/highlights/mySQL"
   # target: "http://localhost:3003/highlights/Cassandra"
   # target: "http://localhost:3003/main/highlights/ssr"
-  target: "http://52.53.128.188:3003/main/highlights/ssr"
+  # target: "http://13.56.81.37:3003/main/highlights/ssr"
+  target: "http://lb-yelp-highlights-93714774.us-west-1.elb.amazonaws.com/main/highlights/ssr"
   phases:
     - duration: 10
       arrivalRate: 20
