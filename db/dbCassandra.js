@@ -11,11 +11,11 @@ client.connect(function (err) {
   if (err) throw err;
 });
 
-client.on('log', function(level, className, message, furtherInfo) {
-  if (level != 'verbose') {
-    console.log('cassandra: %s -- %s', level, message);
-  }
-});
+// client.on('log', function(level, className, message, furtherInfo) {
+//   if (level != 'verbose') {
+//     console.log('cassandra: %s -- %s', level, message);
+//   }
+// });
 
 module.exports = client;
 
