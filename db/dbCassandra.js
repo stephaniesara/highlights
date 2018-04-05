@@ -1,7 +1,7 @@
 const cassandra = require('cassandra-driver');
 
 const client = new cassandra.Client({
-	contactPoints: [ '18.144.61.13', '54.193.112.150' ],
+	contactPoints: [ '172.31.20.187', '172.31.22.146' ],
 	keyspace: 'yelp_highlights'
 	// contactPoints: [ process.env.CASSANDRA_HOST || '127.0.0.1'],
 	// keyspace: 'reviews2'
