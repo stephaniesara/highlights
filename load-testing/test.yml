@@ -7,20 +7,21 @@ config:
   phases:
     - duration: 10
       arrivalRate: 20
-     # rampTo: 30
-      #name: "Warm up"
-    #- duration: 10
-     # arrivalRate: 30
-      #name: "Sustained max load"
+      rampTo: 30
+      name: "Warm up"
+    - duration: 10
+      arrivalRate: 30
+      name: "Sustained max load"
   processor: "./testFunctions.js"
 
 scenarios:
   - name: "Get reviews for a business iterator"
     flow:
       - loop:
-        - function: "getRandomBusinessIterator"
+        # - function: "getRandomBusinessIterator"
+        - function: "getWeightedIterator"
         - get:
             url: "/{{ iterator }}"
-        count: 100
+        count: 600
       # Print the data we're sending while debugging the script:
       # - log: "Sent a get request to /{{ iterator }}"
