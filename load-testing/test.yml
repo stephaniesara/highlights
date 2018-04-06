@@ -3,14 +3,17 @@ config:
   # target: "http://localhost:3003/highlights/Cassandra"
   # target: "http://localhost:3003/main/highlights/ssr"
   # target: "http://13.56.81.37:3003/main/highlights/ssr"
-  target: "http://lb-yelp-highlights-93714774.us-west-1.elb.amazonaws.com/main/highlights/ssr"
+  target: "http://lb-yelp-highlights-93714774.us-west-1.elb.amazonaws.com/api/highlights/ssr"
+  #target: "http://54.219.152.42/main"
+  #target: "http://18.144.61.172/api/highlights/ssr"
+  #target: "http://lb-yelp-highlights-93714774.us-west-1.elb.amazonaws.com/main/highlights/ssr"
   phases:
     - duration: 10
       arrivalRate: 20
       rampTo: 30
       name: "Warm up"
     - duration: 10
-      arrivalRate: 30
+      arrivalRate: 40
       name: "Sustained max load"
   processor: "./testFunctions.js"
 
@@ -19,9 +22,9 @@ scenarios:
     flow:
       - loop:
         # - function: "getRandomBusinessIterator"
-        - function: "getWeightedIterator"
-        - get:
+         - function: "getWeightedBusinessIterator"
+         - get:
             url: "/{{ iterator }}"
-        count: 600
+        count: 300
       # Print the data we're sending while debugging the script:
       # - log: "Sent a get request to /{{ iterator }}"
