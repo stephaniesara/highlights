@@ -36,6 +36,27 @@ app.get('/api/highlights/ssr/:iterator', (req, res) => {
   })
 });
 
+// returns complete index.html
+app.get('/api/highlights/ssr/:iterator', (req, res) => {
+  var iterator = req.params.iterator;
+  redisClient.get(iterator, (err, result) => {
+  	if (result) {
+  		const fromCache = JSON.parse(result);
+  		res.send(html(fromCache[0], fromCache[1]))
+  	} else {
+		  var query = `select sentence, keyword, count, photo_url, is_business_photo from highlight where iterator = ${iterator} order by count desc`;
+		  dbCassandra.execute(query, (err, result) => {
+		    if (err) throw err;
+		    const props = { highlights: result.rows };
+		    const body = renderToString(React.createElement(Highlights, props));
+		    res.send(indexHtml(body, JSON.stringify(props)))
+		    const toCache = JSON.stringify([body, props]);
+		    redisClient.setex(iterator, 60, toCache);
+		  })
+  	}
+  })
+});
+
 // returns a complete index.html template
 // app.get('/main/highlights/ssr/:iterator', (req, res) => {
 //   var iterator = req.params.iterator;
