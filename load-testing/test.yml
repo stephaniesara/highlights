@@ -13,7 +13,7 @@ config:
       rampTo: 30
       name: "Warm up"
     - duration: 10
-      arrivalRate: 40
+      arrivalRate: 30
       name: "Sustained max load"
   processor: "./testFunctions.js"
 
@@ -25,6 +25,6 @@ scenarios:
          - function: "getWeightedBusinessIterator"
          - get:
             url: "/{{ iterator }}"
-        count: 300
+        count: 600
       # Print the data we're sending while debugging the script:
       # - log: "Sent a get request to /{{ iterator }}"
