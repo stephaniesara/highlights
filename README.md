@@ -44,20 +44,23 @@ $ npm start
 
 ### Open Chrome, and PROFIT!
 
-You can render restaurants of id **n** where **n** is between 1-267:
+You can render businesses of id **n** where **n** is between 1-10,000,000:
 
 ```sh
-http://localhost:3002/?id=n
+http://localhost:3003/main/highlights/ssr/id
+http://localhost:3003/api/highlights/ssr/id
 ```
 
 Example: render restaurant of id **n**=122:
 
 ```sh
-http://localhost:3002/?id=122
+http://localhost:3003/main/highlights/ssr/122
+http://localhost:3003/api/highlights/ssr/122
 ```
 
-Default: render restaurant of id **n**=1:
+Note: when deploying, change port to default 80 - example:
 
 ```sh
-http://localhost:3002
+http://18.144.61.172/main/highlights/ssr/122
+http://18.144.61.172/api/highlights/ssr/122
 ```
