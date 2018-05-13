@@ -1,5 +1,6 @@
-const mysql = require('mysql');
+const mysql = require("mysql");
 
+// for AWS db
 // const connection = mysql.createConnection({
 //   host: "chompy-test-database.cr8yw4uwndba.us-west-1.rds.amazonaws.com",
 //   user: "root",
@@ -7,6 +8,7 @@ const mysql = require('mysql');
 //   password: "chompydatabase"
 // });
 
+// for local db
 // const connection = mysql.createConnection({
 //   host: "localhost",
 //   user: "root",
@@ -22,8 +24,8 @@ const connection = mysql.createConnection({
 });
 
 connection.connect(function(err) {
-  if (err) console.log('ERROR');
-  console.log('MYSQL IS CONNECTED')
-})
+  if (err) console.log("ERROR");
+  console.log("MYSQL IS CONNECTED");
+});
 
 module.exports.connection = connection;
