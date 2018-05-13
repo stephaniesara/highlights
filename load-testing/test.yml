@@ -26,5 +26,3 @@ scenarios:
          - get:
             url: "/{{ iterator }}"
         count: 600
-      # Print the data we're sending while debugging the script:
-      # - log: "Sent a get request to /{{ iterator }}"
