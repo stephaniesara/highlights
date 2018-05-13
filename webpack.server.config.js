@@ -1,17 +1,19 @@
-const webpack = require('webpack');
-const nodeExternals = require('webpack-node-externals');
-const path = require('path');
+// for server side rendering
+
+const webpack = require("webpack");
+const nodeExternals = require("webpack-node-externals");
+const path = require("path");
 // var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const UglifyJSPlugin = require("uglifyjs-webpack-plugin");
 
 module.exports = {
-  entry: './server/server.js',
+  entry: "./server/server.js",
   output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'server.js',
-    publicPath: '/'
+    path: path.resolve(__dirname, "dist"),
+    filename: "server.js",
+    publicPath: "/"
   },
-  target: 'node',
+  target: "node",
   externals: nodeExternals(),
   // plugins: [
   //   new webpack.DefinePlugin({
@@ -25,23 +27,21 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        loader: 'babel-loader',
+        loader: "babel-loader",
         query: {
-          presets: ['env', 'react']
+          presets: ["env", "react"]
         }
       },
       {
         test: /\.css$/,
-        loaders: [
-          'css-loader'
-        ]
-      },
+        loaders: ["css-loader"]
+      }
     ]
   },
   plugins: [
     // new BundleAnalyzerPlugin(),
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': '"production"'
+      "process.env.NODE_ENV": '"production"'
     }),
     new webpack.optimize.UglifyJsPlugin()
   ]
